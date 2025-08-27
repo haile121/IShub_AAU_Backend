@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Employee Details</title>
+    <style>
+      body {
+        font-family: Segoe UI, Tahoma, sans-serif;
+      }
+      fieldset {
+        width: 600px;
+        margin: 40px auto;
+        border: 1px solid #aaa;
+        padding: 12px;
+      }
+      legend {
+        font-weight: bold;
+      }
+      .row {
+        margin: 8px 0;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .row label {
+        min-width: 120px;
+      }
+      input[type="text"] {
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="form"></form>
+
+    <script>
+      const form = document.getElementById("form");
+      const fs = document.createElement("fieldset");
+      fs.innerHTML = "<legend>Employee Details</legend>";
+
+      const rows = [
+        ["First name:", "text", "firstName"],
+        ["Last name:", "text", "lastName"],
+        ["Employee ID:", "text", "employeeId"],
+        ["Designation:", "text", "designation"],
+        ["Phone Number:", "text", "phone"],
+      ];
+
+      rows.forEach(([label, type, name]) => {
+        const div = document.createElement("div");
+        div.className = "row";
+        div.innerHTML = `<label for=${name}>${label}</label>
+                       <input type=${type} id=${name} name=${name}>`;
+        fs.appendChild(div);
+      });
+
+      // Gender radios
+      const g = document.createElement("div");
+      g.className = "row";
+      g.innerHTML = `<label>Gender:</label>
+                   <input type=radio name=gender id=male value=Male><label for=male>Male</label>
+                   <input type=radio name=gender id=female value=Female><label for=female>Female</label>`;
+      fs.insertBefore(g, fs.children[2]);
+
+      // Submit button
+      const s = document.createElement("div");
+      s.className = "row";
+      s.innerHTML = `<label></label><input type=submit value=Submit>`;
+      fs.appendChild(s);
+
+      form.appendChild(fs);
+    </script>
+  </body>
+</html>
+
+
+
