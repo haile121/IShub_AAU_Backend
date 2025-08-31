@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import taskRoutes from "./routes/taskRoute.js";
 
 dotenv.config();
-console.log("MONGO_URI from .env:", process.env.MONGO_URI);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
