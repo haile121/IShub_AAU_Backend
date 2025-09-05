@@ -1,18 +1,14 @@
 import express from "express";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
+import connectDB from "./config/db.js";
 import taskRoutes from "./routes/taskRoute.js";
 
 dotenv.config();
-console.log("MONGO_URI from .env:", process.env.MONGO_URI);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(express.json());
-
-// Routes
 app.use("/tasks", taskRoutes);
 
 app.get("/", (req, res) => {
@@ -23,16 +19,14 @@ app.get("/", (req, res) => {
   });
 });
 
-// Connect MongoDB and start server
-mongoose
-  .connect(process.env.MONGODB_URI)
+// Connect to DB and start server
+connectDB()
   .then(() => {
-    console.log("✅ Connected to MongoDB");
     app.listen(PORT, () => {
       console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
   })
-  .catch((err) => {
-    console.error("❌ MongoDB connection error:", err.message);
+  .catch((error) => {
+    console.error("❌ Failed to connect to DB:", error.message);
     process.exit(1);
   });

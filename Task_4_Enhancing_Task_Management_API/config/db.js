@@ -3,15 +3,15 @@ import dotenv from "dotenv";
 dotenv.config();
 
 if (!process.env.MONGODB_URI) {
-  throw new Error("please provide MONGODB_URI in the .env file");
+  throw new Error("Please provide MONGODB_URI in the .env file");
 }
 
 async function connectDB() {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
-    console.log("DB connected!");
+    console.log("✅ DB connected successfully");
   } catch (error) {
-    console.log("Mongodb connections error", error);
+    console.error("❌ MongoDB connection error:", error.message);
     process.exit(1);
   }
 }
